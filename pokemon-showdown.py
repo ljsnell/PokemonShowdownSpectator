@@ -3,7 +3,8 @@ import time
 
 driver = webdriver.Firefox()
 driver.get("https://play.pokemonshowdown.com/")
-while 1>0:
+driver.maximize_window()
+while 1>0:    
     driver.refresh()
     print("After refresh")
     view_battle_button = driver.find_element_by_xpath('//*[@id="room-"]/div/div[1]/div[2]/div[3]/p[1]/button')
@@ -22,6 +23,8 @@ while 1>0:
     # Loop and read battle log every x seconds. Then look for 'won the battle!' and search for a new match.
     battle_over = False
     while battle_over == False:
+        driver.execute_script("document.body.style.MozTransform = 'scale(1.33)';")
+        driver.execute_script('document.body.style.MozTransformOrigin = "0 0";')
         time.sleep(20)
         bodyText = driver.find_element_by_class_name("battle-log").text
         print(bodyText)
