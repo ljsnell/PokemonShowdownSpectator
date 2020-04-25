@@ -28,7 +28,8 @@ while 1>0:
         time.sleep(20)
         bodyText = driver.find_element_by_class_name("battle-log").text
         print(bodyText)
-        if "won the battle!" in bodyText or "This room is expired" or "All players are inactive." or "Tie between" in bodyText:
+        if "won the battle!" in bodyText or "This room is expired" in bodyText or "All players are inactive." in bodyText\
+            or "Tie between" in bodyText:
             battle_over = True
             attempts = 0
             while attempts < 3:
