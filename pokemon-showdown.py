@@ -1,5 +1,6 @@
 from selenium import webdriver
 import time
+from get_names import getNames
 
 driver = webdriver.Firefox()
 driver.get("https://play.pokemonshowdown.com/")
@@ -19,15 +20,25 @@ while 1>0:
     start_of_battle_button.click()
     driver.implicitly_wait(10)
     print('after wait')
-
+    # Get user names: e.g. 
+    # ☆Governor duck joined.
+    # ☆Juggerskill joined.
     # Loop and read battle log every x seconds. Then look for 'won the battle!' and search for a new match.
+    names = driver.find_element_by_class_name("battle-log").text
+    left_name, right_name = getNames(names)
+    print(left_name)
+    print(right_name)
+    print('after battle-log')
     battle_over = False
+    bets_open = True
     while battle_over == False:
         driver.execute_script("document.body.style.MozTransform = 'scale(1.33)';")
         driver.execute_script('document.body.style.MozTransformOrigin = "0 0";')
         time.sleep(20)
         bodyText = driver.find_element_by_class_name("battle-log").text
         print(bodyText)
+        if "Turn 3" in bodyText and bets_open is True:
+            bets_open = False
         if ("won the battle!" or "This room is expired" or "All players are inactive." or "Tie between") in bodyText:
             battle_over = True
             attempts = 0
