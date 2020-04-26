@@ -1,5 +1,6 @@
 import socket
 import os
+import time
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -9,8 +10,7 @@ class twitch_chat_bot:
     user_name = 'python_bot'
     channel = '#showdownspectator'
     readbuffer = ''
-    server = socket.socket()
-    server = socket.socket()
+    server = socket.socket()    
     server.connect(connection_data)
     server.send(bytes('PASS '+ token + '\r\n', 'utf-8'))
     server.send(bytes('NICK '+ user_name + '\r\n', 'utf-8'))
@@ -21,6 +21,7 @@ class twitch_chat_bot:
             msg = "PRIVMSG " + self.channel + " :" + text_to_send + "\r\n"
             self.server.send(bytes(msg, 'utf-8'))
         except:
+            time.sleep(5)
             print("Caught disconnection exception, retrying")
             server = socket.socket()
             self.server.connect(connection_data)
