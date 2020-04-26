@@ -27,6 +27,7 @@ class twitch_chat_bot:
             self.server.send(bytes('PASS '+ token + '\r\n', 'utf-8'))
             self.server.send(bytes('NICK '+ user_name + '\r\n', 'utf-8'))
             self.server.send(bytes('JOIN '+ channel + '\r\n', 'utf-8'))
-            post_msg(text_to_send)
+            msg = "PRIVMSG " + self.channel + " :" + text_to_send + "\r\n"
+            self.server.send(bytes(msg, 'utf-8'))
 
 
