@@ -36,6 +36,11 @@ while 1>0:
             bets_open = False
         if ("won the battle!" or "This room is expired" or "All players are inactive." or "Tie between") in bodyText:
             battle_over = True
+            winner = getWinner(bodyText)
+            print(bodyText)
+            print("winner")
+            print(winner)
+            twitch_handler.post_msg("!bet close " + winner)
             time.sleep(10)
             attempts = 0
             while attempts < 3:
@@ -48,11 +53,6 @@ while 1>0:
                     print("Caught stale exception")
                     driver.refresh()
                 attempts = attempts + 1
-            winner = getWinner(bodyText)
-            print(bodyText)
-            print("winner")
-            print(winner)
-            twitch_handler.post_msg("!bet close " + winner)
     # Refresh Battle List
     time.sleep(5)
     view_battle_button = driver.find_element_by_xpath('//*[@id="room-"]/div/div[1]/div[2]/div[3]/p[1]/button')
