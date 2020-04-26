@@ -30,8 +30,6 @@ while 1>0:
     bets_open = True
     
     while battle_over == False:
-        driver.execute_script("document.body.style.MozTransform = 'scale(1.33)';")
-        driver.execute_script('document.body.style.MozTransformOrigin = "0 0";')
         time.sleep(20)
         bodyText = driver.find_element_by_class_name("battle-log").text
         if "Turn 3" in bodyText and bets_open is True:
