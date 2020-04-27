@@ -9,6 +9,7 @@ import time
 from get_names import getNames, getWinner
 from twitch_connect import twitch_chat_bot
 from close_battle import closeBattle
+import random
 
 # start twitch_chat_bot - credentials/channel specified in `twitch_connect.py`
 twitch_handler = twitch_chat_bot()
@@ -47,7 +48,6 @@ while True:
     # extract player names from battle log
     battle_log = driver.find_element_by_class_name("battle-log").text
     left_name, right_name = getNames(battle_log)
-    
     # Post bet & options to twitch chat
     twitch_handler.post_msg('!bet open "Who will win?" "' + left_name + ", " + right_name + '" 1 1000 2')
     
@@ -64,25 +64,23 @@ while True:
         if "won the battle!" in battle_log:
             battle_over = True
             winner = getWinner(battle_log)
-            print(battle_log)
             print("winner")
             print(winner)
-            twitch_handler.post_msg("!bet close " + winner)
-            
+            twitch_handler.post_msg("!bet close " + winner)            
             closeBattle(driver)
-        # If > 20 minutes have passed on a battle abandon it.
+
+        # If > 20 minutes have passed for a battle abandon it.
         elif loop_count > 60:
             battle_over = True
-            winner = left_name
-            print(battle_log)
-            print("winner defaulted to left side.")
-            # Need to pick random winner
+            # Randomly determine winner
+            winner = random.choice([left_name, right_name])            
             twitch_handler.post_msg("Room timed out, defaulting winner.")
             twitch_handler.post_msg("!bet close " + winner)
             
             closeBattle(driver)
             
     # return to and refresh battle list
+    print(battle_log)
     time.sleep(5)
     view_battle_button = driver.find_element_by_xpath('//*[@id="room-"]/div/div[1]/div[2]/div[3]/p[1]/button')
     view_battle_button.click()
