@@ -56,6 +56,7 @@ while True:
         
         # wait twenty seconds
         time.sleep(20)
+        battle_log = driver.find_element_by_class_name("battle-log").text
         
         # report winner and close bets to Twitch Channel
         if ("won the battle!" or "This room is expired" or "All players are inactive." or "Tie between") in battle_log:
