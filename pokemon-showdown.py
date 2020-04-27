@@ -38,7 +38,7 @@ while True:
     driver.implicitly_wait(10)
     
     # reset battle playback to the first move
-    driver.find_element_by_name("instantReplay")
+    start_of_battle_button = driver.find_element_by_name("instantReplay")
     start_of_battle_button.click()
     driver.implicitly_wait(10)
     print('after wait')
@@ -56,11 +56,6 @@ while True:
         
         # wait twenty seconds
         time.sleep(20)
-        
-        # bets aren't open by start of turn 3 (but this variable doesn't seem to do anything yet?)
-        battle_log = driver.find_element_by_class_name("battle-log").text
-        if "Turn 3" in battle_log and bets_open:
-            bets_open = False
         
         # report winner and close bets to Twitch Channel
         if ("won the battle!" or "This room is expired" or "All players are inactive." or "Tie between") in battle_log:
