@@ -23,11 +23,10 @@ class twitch_chat_bot:
         except:
             time.sleep(5)
             print("Caught disconnection exception, retrying")
-            server = socket.socket()
-            self.server.connect(connection_data)
-            self.server.send(bytes('PASS '+ token + '\r\n', 'utf-8'))
-            self.server.send(bytes('NICK '+ user_name + '\r\n', 'utf-8'))
-            self.server.send(bytes('JOIN '+ channel + '\r\n', 'utf-8'))
+            self.server.connect(self.connection_data)
+            self.server.send(bytes('PASS '+ self.token + '\r\n', 'utf-8'))
+            self.server.send(bytes('NICK '+ self.user_name + '\r\n', 'utf-8'))
+            self.server.send(bytes('JOIN '+ self.channel + '\r\n', 'utf-8'))
             msg = "PRIVMSG " + self.channel + " :" + text_to_send + "\r\n"
             self.server.send(bytes(msg, 'utf-8'))
 
