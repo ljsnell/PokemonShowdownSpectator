@@ -1,18 +1,26 @@
+# -*- coding: utf-8 -*-
 import re
 
-def getNames(loaded_text):
-    split_text = loaded_text.split("\n")
-    left_name = getCleanString(split_text[1].replace(' joined.', '').replace('☆', ''))
+def getNames(battle_log):
+    "Extracts player usernames from loaded battle log"
     
+    split_text = battle_log.split("\n")
+    left_name = getCleanString(split_text[1].replace(' joined.', '').replace('☆', ''))
     right_name = getCleanString(split_text[2].replace(' joined.', '').replace('☆', ''))
+    
     return left_name, right_name
 
-def getWinner(bodyText):
-    matched_lines = [line for line in bodyText.split('\n') if " won " in line]
-    # Find first part and return slice before it.
+def getWinner(battle_log):
+    "Extracts username of battle winner from battle log"
+    
+    # in first line mentioning " won ", find first part and return slice before it
+    matched_lines = [line for line in battle_log.split('\n') if " won " in line]
     pos_a = matched_lines[0].find(' won ')
     winner = getCleanString(matched_lines[0][0:pos_a])
-    return winner
     
+    return winner
+
 def getCleanString(string2Clean):
+    "Removes characters that aren't alphanumeric or underscore"
+    
     return re.sub(r'\W+', '', string2Clean)
