@@ -8,6 +8,7 @@ from selenium import webdriver
 import time
 from get_names import getNames, getWinner
 from twitch_connect import twitch_chat_bot
+from close_battle import closeBattle
 
 # start twitch_chat_bot - credentials/channel specified in `twitch_connect.py`
 twitch_handler = twitch_chat_bot()
@@ -68,20 +69,8 @@ while True:
             print(winner)
             twitch_handler.post_msg("!bet close " + winner)
             
-            # 10 seconds after bets close, exit battle and loop
-            time.sleep(10)
-            attempts = 0
-            while attempts < 3:
-                try:
-                    close_battle_button = driver.find_element_by_name("closeRoom")
-                    close_battle_button.click()
-                    print("Close button clicked")
-                    break
-                except:
-                    print("Caught stale exception")
-                    driver.refresh()
-                attempts = attempts + 1
-        # If > 20 minutes have passed on a battle
+            closeBattle(driver)
+        # If > 20 minutes have passed on a battle abandon it.
         elif loop_count > 60:
             battle_over = True
             winner = left_name
@@ -91,19 +80,8 @@ while True:
             twitch_handler.post_msg("Room timed out, defaulting winner.")
             twitch_handler.post_msg("!bet close " + winner)
             
-            # 10 seconds after bets close, exit battle and loop
-            time.sleep(10)
-            attempts = 0
-            while attempts < 3:
-                try:
-                    close_battle_button = driver.find_element_by_name("closeRoom")
-                    close_battle_button.click()
-                    print("Close button clicked")
-                    break
-                except:
-                    print("Caught stale exception")
-                    driver.refresh()
-                attempts = attempts + 1
+            closeBattle(driver)
+            
     # return to and refresh battle list
     time.sleep(5)
     view_battle_button = driver.find_element_by_xpath('//*[@id="room-"]/div/div[1]/div[2]/div[3]/p[1]/button')
