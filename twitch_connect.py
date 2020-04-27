@@ -1,3 +1,6 @@
+# # `twitch_connect.py`
+# A class for posting messages to a specified Twitch `channel` using a specified `token` and `user_name`. Modify the relevant variables in the class definition to suit project requirements.
+
 import socket
 import os
 import time
@@ -30,5 +33,3 @@ class twitch_chat_bot:
             self.server.send(bytes('JOIN '+ channel + '\r\n', 'utf-8'))
             msg = "PRIVMSG " + self.channel + " :" + text_to_send + "\r\n"
             self.server.send(bytes(msg, 'utf-8'))
-
-
