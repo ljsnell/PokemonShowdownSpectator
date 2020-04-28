@@ -24,16 +24,12 @@ class twitch_chat_bot:
 
     def post_msg(self, text_to_send):
         "Attempt to post message to channel, restarting server connection upon first failure."
-        
-        try:
-            msg = "PRIVMSG " + self.channel + " :" + text_to_send + "\r\n"
-            self.server.send(bytes(msg, 'utf-8'))
-        except:
-            time.sleep(5)
-            print("Caught disconnection exception, retrying")
-            self.server.connect(self.connection_data)
-            self.server.send(bytes('PASS '+ self.token + '\r\n', 'utf-8'))
-            self.server.send(bytes('NICK '+ self.user_name + '\r\n', 'utf-8'))
-            self.server.send(bytes('JOIN '+ self.channel + '\r\n', 'utf-8'))
-            msg = "PRIVMSG " + self.channel + " :" + text_to_send + "\r\n"
-            self.server.send(bytes(msg, 'utf-8'))
+        msg = "PRIVMSG " + self.channel + " :" + text_to_send + "\r\n"
+        self.server.send(bytes(msg, 'utf-8'))
+
+    def respond_to_pings(self):
+        text = self.server.recv(2040)
+        print(text)
+        if 'PING' in str(text):
+            print("Sending the pong!")
+            self.server.send(bytes('PONG :tmi.twitch.tv', 'utf-8'))
