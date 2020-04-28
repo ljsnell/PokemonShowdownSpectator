@@ -55,11 +55,10 @@ while True:
         loop_count = loop_count + 1
         # wait twenty seconds
         time.sleep(20)
-        # Check if Twitch irc server has sent a ping and respond with pong. Should help with disconnects.
-        twitch_handler.respond_to_pings()
 
         battle_log = driver.find_element_by_class_name("battle-log").text
-        
+        print("battle_log")
+        print(battle_log)       
         # report winner and close bets to Twitch Channel
         if "won the battle!" in battle_log:
             battle_over = True
@@ -76,7 +75,7 @@ while True:
             twitch_handler.post_msg("!bet close " + winner)
             
             closeBattle(driver)
-            
+
     # return to and refresh battle list
     print(battle_log)
     time.sleep(5)
