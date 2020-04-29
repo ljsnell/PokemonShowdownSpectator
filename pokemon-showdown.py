@@ -11,6 +11,7 @@ from twitch_connect import twitch_chat_bot
 from close_battle import closeBattle
 import random
 
+GEN_TO_SPECTATE = 8
 # start twitch_chat_bot - credentials/channel specified in `twitch_connect.py`
 twitch_handler = twitch_chat_bot()
 
@@ -31,6 +32,15 @@ while True:
     view_battle_button = driver.find_element_by_xpath('//*[@id="room-"]/div/div[1]/div[2]/div[3]/p[1]/button')
     view_battle_button.click()
     driver.implicitly_wait(10)
+    
+    if GEN_TO_SPECTATE == 8:
+        # Filter to only show Gen 8 OU Matches.
+        filter_dropdown = driver.find_element_by_xpath('//*[@id="room-battles"]/div/div/p[2]/button')
+        driver.implicitly_wait(2)
+        filter_dropdown.click()
+        filter_button = driver.find_element_by_xpath('/html/body/div[5]/ul[1]/li[5]/button')
+        filter_button.click()
+        driver.implicitly_wait(2)
 
     # select first active battle listed
     refresh_button = driver.find_element_by_xpath('//*[@id="room-battles"]/div/div/div/div[1]/a')
