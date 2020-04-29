@@ -35,12 +35,12 @@ while True:
     
     if GEN_TO_SPECTATE == 8:
         # Filter to only show Gen 8 OU Matches.
-        filter_dropdown = driver.find_element_by_xpath('//*[@id="room-battles"]/div/div/p[2]/button')
-        driver.implicitly_wait(2)
+        filter_dropdown = driver.find_element_by_xpath('/html/body/div[4]/div/div/p[2]/button')
+        driver.implicitly_wait(10)
         filter_dropdown.click()
         filter_button = driver.find_element_by_xpath('/html/body/div[5]/ul[1]/li[5]/button')
         filter_button.click()
-        driver.implicitly_wait(2)
+        driver.implicitly_wait(10)
 
     # select first active battle listed
     refresh_button = driver.find_element_by_xpath('//*[@id="room-battles"]/div/div/div/div[1]/a')
