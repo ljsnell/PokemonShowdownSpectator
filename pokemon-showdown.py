@@ -56,7 +56,7 @@ while True:
     battle_log = driver.find_element_by_class_name("battle-log").text
     left_name, right_name = getNames(battle_log)
     # Post bet & options to twitch chat
-    twitch_handler.post_msg('!bet open "Who will win?" "' + left_name + ", " + right_name + '" 1 1000 2')    
+    twitch_handler.post_msg('!bet open "Which side will win?" "left, right" 1 1000 2')    
     
     # loop until battle ends
     loop_count = 0
@@ -72,7 +72,7 @@ while True:
         # report winner and close bets to Twitch Channel
         if "won the battle!" in battle_log:
             battle_over = True
-            winner = getWinner(battle_log)
+            winner = getWinner(battle_log, left_name, right_name)
             twitch_handler.post_msg("!bet close " + winner)            
             closeBattle(driver)
 
@@ -80,10 +80,9 @@ while True:
         elif loop_count > 60:
             battle_over = True
             # Randomly determine winner
-            winner = random.choice([left_name, right_name])            
+            winner = random.choice(['left', 'right'])            
             twitch_handler.post_msg("Room timed out, defaulting winner.")
-            twitch_handler.post_msg("!bet close " + winner)
-            
+            twitch_handler.post_msg("!bet close " + winner)            
             closeBattle(driver)
 
     # return to and refresh battle list
