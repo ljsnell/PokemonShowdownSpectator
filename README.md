@@ -4,7 +4,7 @@ An Automatic Spectator for Pokemon Showdown Matches
 ## Overview
 `PokemonShowdownSpectator` is a bot that automatically spectates random Pokemon Showdown matches for streaming and coordinating bets on the winners on the Twitch Channel `#showdownspectator`. (Basically bare bones SaltyTeemo but for Pokemon.)
 
-Pokemon Showdown is an open source game which enables people all around the world to play competitive matches. Check it out here! This stream selects random matches and broadcasts them for your enjoyment.
+Pokemon Showdown is an open source game which enables people all around the world to play competitive matches. Check it out [here](https://pokemonshowdown.com/)! The [stream](https://www.twitch.tv/showdownspectator) selects random matches and broadcasts them for your enjoyment.
 
 Please do not attempt to contact any players in the featured matches and be respectful in the chat.
 
