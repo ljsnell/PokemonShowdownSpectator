@@ -23,6 +23,5 @@ class twitch_chat_bot:
         server.send(bytes('PASS '+ token + '\r\n', 'utf-8'))
         server.send(bytes('NICK '+ user_name + '\r\n', 'utf-8'))
         server.send(bytes('JOIN '+ channel + '\r\n', 'utf-8'))
-        "Attempt to post message to channel, restarting server connection upon first failure."
         msg = "PRIVMSG " + channel + " :" + text_to_send + "\r\n"
         server.send(bytes(msg, 'utf-8'))
