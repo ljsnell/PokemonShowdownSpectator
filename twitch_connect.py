@@ -27,3 +27,4 @@ class twitch_chat_bot:
         server.send(bytes(msg, 'utf-8'))
         quit_msg = "QUIT :Closing connection"
         server.send(bytes(quit_msg, 'utf-8'))
+        server.close()
